@@ -1,1 +1,1 @@
-Employee Progress Tracker.
+Smart Teno Application
