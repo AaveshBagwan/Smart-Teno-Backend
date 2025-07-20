@@ -36,6 +36,9 @@ public class UserService {
             if (!foundUser.getPassword().equals(user.getPassword())) {
                 throw new BadRequestException("Existing password entered is invalid");
             }
+            if(foundUser.getPassword().equals(user.getNewPassword())) {
+                throw new BadRequestException("New password cannot be same as existing password");
+            }
             foundUser.setPassword(user.getNewPassword());
         }
 
