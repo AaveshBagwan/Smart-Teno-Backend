@@ -1,6 +1,6 @@
 package com.platform.common.config.attributeconverter;
 
-import com.platform.common.constants.StatusEnum;
+import com.platform.common.model.StatusEnum;
 
 public class EnumAttributeConverters {
 

@@ -1,15 +1,13 @@
 package com.platform.auth;
 
-import com.platform.Repository.UsersRepository;
-import com.platform.common.constants.CommonConstants;
-import com.platform.common.constants.RedisKeys;
-import com.platform.common.constants.StatusEnum;
-import com.platform.common.exception.BadRequestException;
+import com.platform.repository.UsersRepository;
 import com.platform.common.cache.LocalCacheService;
+import com.platform.common.exception.BadRequestException;
+import com.platform.common.model.CommonConstants;
+import com.platform.common.model.StatusEnum;
 import com.platform.common.model.UserSession;
-import com.platform.common.utils.CommonUtils;
 import com.platform.common.utils.JwtUtils;
-import com.platform.common.utils.RequestUtils;
+import com.platform.common.utils.SessionUtils;
 import com.platform.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,7 @@ public class AuthService {
 
         String acToken = JwtUtils.generateAccessToken(userFoundAtOurEnd);
         UserSession userSession = buildUserSession(userFoundAtOurEnd, acToken);
-        CommonUtils.setUserSession(userSession);
+        SessionUtils.setUserSession(userSession);
 
         return buildAuthResModel(userFoundAtOurEnd, userSession);
     }
@@ -59,15 +57,13 @@ public class AuthService {
 
         String acToken = JwtUtils.generateAccessToken(newUser);
         UserSession userSession = buildUserSession(newUser, acToken);
-        CommonUtils.setUserSession(userSession);
+        SessionUtils.setUserSession(userSession);
 
         return buildAuthResModel(newUser, userSession);
     }
 
     public void logout() {
-        Optional.ofNullable(RequestUtils.getCurrentRequest())
-                .map(request -> request.getAttribute(RedisKeys.ACCESS_TOKEN.getKey()))
-                .ifPresent(token -> localCacheService.remove(RedisKeys.ACCESS_TOKEN.getKey((String) token)));
+        SessionUtils.removeUserSession();
     }
 
     private static AuthResModel buildAuthResModel(User user, UserSession userSession) {
@@ -76,7 +72,6 @@ public class AuthService {
                 .email(user.getEmail())
                 .mobileNumber(user.getMobileNumber())
                 .username(user.getUsername())
-                .profileImageUrl(null)
                 .accessToken(userSession.getAccessToken())
                 .acTokenExpiry(userSession.getAcTokenExpiry())
                 .acTokenType(CommonConstants.bearerTokenKey)

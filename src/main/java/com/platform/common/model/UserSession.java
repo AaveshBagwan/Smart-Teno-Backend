@@ -22,4 +22,5 @@ public class UserSession {
     private ZonedDateTime acTokenExpiry;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
 }

@@ -6,8 +6,9 @@ import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.platform.common.constants.JwtCredentials;
-import com.platform.common.constants.JwtSubKeys;
+import com.platform.common.model.jwt.JwtCredentials;
+import com.platform.common.model.jwt.JwtSubKeys;
+import com.platform.common.exception.UnauthorizedException;
 import com.platform.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -29,7 +30,7 @@ public class JwtUtils {
     }
 
     public static JwtCredentials getJwtCredentials() {
-        if(jwtCredentialsCache != null) {
+        if (jwtCredentialsCache != null) {
             return jwtCredentialsCache;
         }
         return jwtCredentialsCache = jwtCredentials.get();
@@ -80,15 +81,15 @@ public class JwtUtils {
                     .verify(jwtToken);
 
         } catch (SignatureVerificationException e) {
-            throw new IllegalArgumentException("Invalid JWT token signature");
+            throw new UnauthorizedException("Invalid JWT token signature");
         } catch (TokenExpiredException e) {
-            throw new IllegalArgumentException("JWT token has expired");
+            throw new UnauthorizedException("JWT token has expired");
         } catch (InvalidClaimException e) {
             log.error("Error InvalidClaimException : {}", e.getMessage());
             log.error("Error InvalidClaimException cause : {}", e.getCause().getMessage());
-            throw new IllegalArgumentException(e.getCause().getMessage());
+            throw new UnauthorizedException(e.getCause().getMessage());
         } catch (Exception e) {
-            throw new RuntimeException("Unable to validate JWT token");
+            throw new UnauthorizedException("Unable to validate JWT token");
         }
     }
 

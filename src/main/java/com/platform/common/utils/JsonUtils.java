@@ -4,12 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.SneakyThrows;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -82,7 +80,8 @@ public class JsonUtils {
     @SneakyThrows
     public static List<Map<String, Object>> deserializeList(String jsonList) {
         try {
-            return objectMapper.readValue(jsonList, new TypeReference<List<Map<String, Object>>>() {});
+            return objectMapper.readValue(jsonList, new TypeReference<List<Map<String, Object>>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -90,9 +89,10 @@ public class JsonUtils {
     }
 
     @SneakyThrows
-    public static <T> Map<String, Object> convertTomap(T value){
+    public static <T> Map<String, Object> convertTomap(T value) {
         try {
-            return objectMapper.convertValue(value, new TypeReference<Map<String, Object>>() {});
+            return objectMapper.convertValue(value, new TypeReference<Map<String, Object>>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

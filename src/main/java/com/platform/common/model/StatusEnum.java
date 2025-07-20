@@ -1,4 +1,4 @@
-package com.platform.common.constants;
+package com.platform.common.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

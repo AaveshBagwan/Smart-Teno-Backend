@@ -1,6 +1,7 @@
 package com.platform.entity;
 
 import com.platform.common.utils.CommonUtils;
+import com.platform.common.utils.SessionUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
@@ -19,20 +20,20 @@ import lombok.experimental.SuperBuilder;
 @Data
 public class SecondBaseEntity extends FirstBaseEntity {
 
-    @Column(name = "CREATED_BY_ID")
+    @Column(name = "created_by_id")
     private Long createdById;
 
-    @Column(name = "UPDATED_BY_ID")
+    @Column(name = "updated_by_id")
     private Long updatedById;
 
     @PrePersist
     public void addIdsAtPersist() {
-        this.createdById = CommonUtils.getUserSession().getUserId();
-        this.updatedById = CommonUtils.getUserSession().getUserId();
+        this.createdById = SessionUtils.getUserSession().getUserId();
+        this.updatedById = SessionUtils.getUserSession().getUserId();
     }
 
     @PreUpdate
     public void addIdsAtUpdate() {
-        this.updatedById = CommonUtils.getUserSession().getUserId();
+        this.updatedById = SessionUtils.getUserSession().getUserId();
     }
 }

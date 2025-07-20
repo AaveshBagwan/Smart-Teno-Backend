@@ -1,4 +1,4 @@
-package com.platform.common.constants;
+package com.platform.common.model.jwt;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

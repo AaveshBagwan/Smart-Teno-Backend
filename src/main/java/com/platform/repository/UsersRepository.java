@@ -1,14 +1,15 @@
-package com.platform.Repository;
+package com.platform.repository;
 
+import com.platform.common.model.StatusEnum;
 import com.platform.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface UsersRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUserIdAndStatus(Long userId, StatusEnum statusEnum);
 
     Optional<User> findByUsername(String username);
 

@@ -1,7 +1,7 @@
 package com.platform.entity;
 
 import com.platform.common.config.attributeconverter.EnumAttributeConverters;
-import com.platform.common.constants.StatusEnum;
+import com.platform.common.model.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 @Data
 public class FirstBaseEntity {
 
-    @Column(name = "CREATED_ON")
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-    @Column(name = "UPDATED_ON")
+    @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
-    @Column(name = "STATUS")
+    @Column(name = "status")
     @Convert(converter = EnumAttributeConverters.StatusConverter.class)
     private StatusEnum status;
 

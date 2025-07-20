@@ -1,6 +1,5 @@
 package com.platform.auth;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +22,6 @@ public class AuthResModel {
     private String email;
 
     private String mobileNumber;
-
-    private String profileImageUrl;
 
     private String accessToken;
 

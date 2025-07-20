@@ -1,7 +1,7 @@
 package com.platform.common.utils;
 
-import com.platform.common.constants.CommonConstants;
-import com.platform.common.constants.CookieKeys;
+import com.platform.common.model.CommonConstants;
+import com.platform.common.model.CookieKeys;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,9 +45,9 @@ public class RequestUtils {
         String tokenFromCookies = Optional.ofNullable(request)
                 .map(HttpServletRequest::getCookies)
                 .flatMap(val ->
-                    Arrays.stream(val)
-                    .filter(cookie -> cookie.getName().equalsIgnoreCase(CookieKeys.ACCESS_TOKEN.getKey(request.getServerName())))
-                    .findFirst()
+                        Arrays.stream(val)
+                                .filter(cookie -> cookie.getName().equalsIgnoreCase(CookieKeys.ACCESS_TOKEN.getKey(request.getServerName())))
+                                .findFirst()
                 )
                 .map(Cookie::getValue)
                 .map(String::trim)
@@ -60,7 +60,7 @@ public class RequestUtils {
         return null;
     }
 
-    public static ZonedDateTime getLandingTime(){
+    public static ZonedDateTime getLandingTime() {
         return Optional.ofNullable(getCurrentRequest())
                 .map(request -> request.getAttribute(CommonConstants.LANDING_TIME))
                 .filter(val -> val instanceof ZonedDateTime)

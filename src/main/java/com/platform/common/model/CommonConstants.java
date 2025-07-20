@@ -1,4 +1,4 @@
-package com.platform.common.constants;
+package com.platform.common.model;
 
 public interface CommonConstants {
 
